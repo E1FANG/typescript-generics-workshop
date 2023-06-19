@@ -1,9 +1,25 @@
 import { expect, it, describe } from "vitest";
 import { Equal, Expect } from "../helpers/type-utils";
 
+type IConfig = {
+  rawConfig: {
+    featureFlags: {
+      homePage: {
+        showBanner: boolean
+        showLogOut: boolean
+      }
+      loginPage: {
+        showCaptcha: boolean
+        showConfirmPassword: boolean
+      }
+    }
+  }
+}
+
 export const getHomePageFeatureFlags = (
-  config: unknown,
-  override: (flags: unknown) => unknown
+  config: IConfig,
+  override: (flags: IConfig['rawConfig']['featureFlags']['homePage'])
+   => IConfig['rawConfig']['featureFlags']['homePage']
 ) => {
   return override(config.rawConfig.featureFlags.homePage);
 };
